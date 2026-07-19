@@ -115,7 +115,8 @@ class ReplyActionMixin:
             "pn": "1"
         }
         data = await self._http_get(Config.REPLY_DETAIL_URL, params=params, caller="ReplyAction.get_reply_details")
-
+#        print(params)
+        print(data)
         sub_data = data.get("data", {})
         root_reply = sub_data.get("root") or {}
         replies_list = sub_data.get("replies") or []
