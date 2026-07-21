@@ -1,6 +1,7 @@
 from .history import BiliHistory
+from .space import BiliSpace
 
-class BiliAPI(BiliHistory):
+class BiliAPI(BiliHistory, BiliSpace):
     pass
 
 __all__ = ['BiliAPI']

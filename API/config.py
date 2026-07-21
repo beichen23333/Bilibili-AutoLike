@@ -88,3 +88,6 @@ class Config:
     SHARE_ADD_URL = "https://api.bilibili.com/x/web-interface/share/add"
 
     DANMAKU_POST_URL = "https://api.bilibili.com/x/v2/dm/post"
+
+    SPACE_SEARCH_URL = "https://api.bilibili.com/x/space/wbi/arc/search"
+

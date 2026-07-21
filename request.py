@@ -5,7 +5,7 @@ import time
 import uuid
 import argparse
 from API import BiliAPI
-from crypto_utils import BlacklistDecryptor
+from manager import BlacklistManager
 
 api = BiliAPI(
     access_token=os.getenv("BILI_ACCESS_TOKEN", ""),
@@ -17,7 +17,7 @@ video_queue = asyncio.Queue()
 processed_set = set()
 lock = asyncio.Lock()
 
-decryptor = BlacklistDecryptor()
+manager = BlacklistManager()
 
 async def monitor_list():
     while True:
@@ -42,14 +42,14 @@ async def process_video_worker():
         aid, bvid, title, owner_mid = await video_queue.get()
         
         try:
-            if decryptor.is_severe_blacklisted(owner_mid):
+            if manager.is_severe_blacklisted(owner_mid):
                 try:
                     await api.dislike_video(aid, dislike=1)
                 except:
                     pass
                 continue
 
-            if decryptor.is_blacklisted(owner_mid):
+            if manager.is_blacklisted(owner_mid):
                 continue
 
             relation_str = ""
@@ -73,7 +73,7 @@ async def process_video_worker():
 
             if like_code == 65011:
                 try:
-                    decryptor.report_blocked_me(owner_mid)
+                    manager.report_blocked_me(owner_mid)
                 except:
                     pass
                 continue
@@ -162,7 +162,7 @@ async def main():
     if not await api.init_fav_folder():
         return
         
-    decryptor.start_sync()
+    manager.start_sync()
         
     workers = [asyncio.create_task(process_video_worker()) for _ in range(128)]
     

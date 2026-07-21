@@ -3,11 +3,6 @@ import os
 import argparse
 from API import BiliAPI
 
-os.environ["BILI_ACCESS_TOKEN"] = "9f2f36a4c09f278fc9cb7158c3f75a71"
-os.environ["BILI_SESSDATA"] = "2fce3cd7%2C1799474200%2C7e452%2A72CjAWHc_vszMxqLd8g75FYwKNtB3KTYxn6CmKiaXEkTp0j7VnVKcLUTB198-TLRg8OJ4SVmIwWUh1TU9kaGRxVkFQU19KWlNmWE9jRE1XendqLVgxb1N0R1Z3VDQtbUVDWUc2V3czWlphNkk0RGVodTBTHV_Y1Q1WlQ1WzWlphNkk0RGVodTBUNVkxQ1owZDh5Z3ZJNVI5RFZsampDU3VRIIEC"
-os.environ["BILI_JCT"] = "f6e873b3790b9fd421780af9638596de"
-os.environ["DEEPSEEK_API_KEY"] = "sk-0d337ac8bc68483fb5e9db9217b0c833"
-
 api = BiliAPI(
     access_token=os.getenv("BILI_ACCESS_TOKEN", ""),
     sessdata=os.getenv("BILI_SESSDATA", ""),
