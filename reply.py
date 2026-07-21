@@ -3,6 +3,7 @@ import os
 import argparse
 from API import BiliAPI
 
+
 api = BiliAPI(
     access_token=os.getenv("BILI_ACCESS_TOKEN", ""),
     sessdata=os.getenv("BILI_SESSDATA", ""),
