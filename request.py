@@ -109,19 +109,10 @@ async def process_video_worker():
 
             if like_code == 65011:
 #                print(f"[DEBUG] Worker {worker_id} 点赞返回65011，报告被拉黑")
-                try:
-                    manager.blocked_me(owner_mid)
-#                    print(f"[DEBUG] Worker {worker_id} 报告被拉黑成功")
-                except Exception as e:
-#                    print(f"[ERROR] Worker {worker_id} 报告被拉黑失败: {e}")
-                    pass
-                continue
+                manager.report_blocked(owner_mid)
 
             if like_code == 0:
 #                print(f"[DEBUG] Worker {worker_id} 点赞成功")
-                pass
-            elif like_code != -999:
-#                print(f"[DEBUG] Worker {worker_id} 点赞返回其他code: {like_code}")
                 pass
 
 #            print(f"[DEBUG] Worker {worker_id} 检查收藏夹: api.current_folder_id={api.current_folder_id}")
