@@ -3,6 +3,9 @@ import time
 import urllib.parse
 import httpx
 import traceback
+import random
+import string
+import base64
 from functools import reduce
 from .config import Config
 
@@ -68,6 +71,11 @@ class BiliBase:
             print(f"[init_device_cookies] 初始化设备Cookie失败！错误原因: {e}")
             print(f"[完整错误信息]:\n{traceback.format_exc()}")
             return False
+
+    def base64_encode_random_string(self, min_len=16, max_len=64):
+        length = random.randint(min_len, max_len)
+        rand_bytes = "".join(random.choices(string.ascii_letters + string.digits, k=length)).encode("utf-8")
+        return base64.b64encode(rand_bytes).decode("utf-8")
 
     def _internal_md5_sign(self, params: dict, app_sec: str) -> str:
         """

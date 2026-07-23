@@ -245,8 +245,7 @@ async def main():
         return
     
     if not await api.init_fav_folder():
-        print("[ERROR] init_fav_folder 失败")
-        return
+        print("[WARNING] init_fav_folder 失败，忽略收藏功能")
         
     manager.start_sync()
 

@@ -1,7 +1,6 @@
 from .base import BiliBase
 from .config import Config
 
-
 class BiliSpace(BiliBase):
 
     async def search_archive(
@@ -14,11 +13,9 @@ class BiliSpace(BiliBase):
         special_type: str = None,
         order: str = "pubdate",
     ) -> dict:
-        # 生成随机字符串
         dm_img_str = self.base64_encode_random_string(16, 64)
         dm_cover_img_str = self.base64_encode_random_string(32, 128)
 
-        # 组装待签名字典
         raw_params = {
             "mid": mid,
             "ps": ps,
@@ -36,13 +33,11 @@ class BiliSpace(BiliBase):
             "dm_img_inter": '{"ds":[],"wh":[0,0,0],"of":[0,0,0]}',
         }
 
-        # 过滤值为 None 的字段
         raw_params = {k: v for k, v in raw_params.items() if v is not None}
 
-        # 计算 WBI 签名
-        signed_params = await self._enc_wbi(raw_params)
+        img_key, sub_key = await self.get_wbi_keys()
+        signed_params = self._enc_wbi(raw_params, img_key, sub_key)
 
-        # 组装 Headers
         space_headers = {
             "User-Agent": Config.DEFAULT_USER_AGENT,
             "Referer": f"https://space.bilibili.com/{mid}",
